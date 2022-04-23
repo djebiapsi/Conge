@@ -1,0 +1,99 @@
+{% extends "empty.html.twig" %}
+
+    {% block title %}Page d'acceuil{% endblock title %}
+    {% block content %}
+        <div class="container">
+            <div class="row row-cards">
+            {% if accreditation != 0 %}
+            
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body p-3 text-center">
+                            <div class="h1 m-0">{{nbrDemande}}</div>
+                            <div class="text-muted mb-4">Demande(s) de congé</div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body p-3 text-center">
+                            <div class="h1 m-0">{{nbrAccepte}}</div>
+                            <div class="text-muted mb-4">Demande(s) de congé acceptée(s)</div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body p-3 text-center">
+                            <div class="h1 m-0">{{totalDay}}</div>
+                            <div class="text-muted mb-4">Jour(s) de congé Consommé(s)</div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                        <div class="card-body p-3 text-center">
+                            <div class="h1 m-0">{{30-totalDay}}</div>
+                            <div class="text-muted mb-4">Jour(s) de congé Restant(s)</div>
+                        </div>
+                        </div>
+                    </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Pourcentage de vos demandes</h3>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-donut" style="height: 12rem;"></div>
+                            </div>
+                            </div>
+
+                            {% set pourcentJrUtilise = (totalDay*100)/30 %}
+                            {% set pourcentJrRestant = 100 - pourcentJrUtilise %}
+                            
+
+                            <script>
+                            require(['c3', 'jquery'], function(c3, $) {
+                                $(document).ready(function(){
+                                    var chart = c3.generate({
+                                        bindto: '#chart-donut', // id of chart wrapper
+                                        data: {
+                                            columns: [
+                                                // each columns data
+                                                ['data1', {{pourcentJrUtilise}}],
+                                                ['data2', {{pourcentJrRestant}}],
+                                            ],
+                                            type: 'donut', // default type of chart
+                                            colors: {
+                                                'data1': tabler.colors["green"],
+                                                'data2': tabler.colors["green-light"],
+                                            },
+                                            names: {
+                                                // name of each serie
+                                                'data1': 'Jours Consommés',
+                                                'data2': 'Jours Restants',
+                                            }
+                                        },
+                                        axis: {
+                                        },
+                                        legend: {
+                                            show: true, //hide legend
+                                        },
+                                        padding: {
+                                            bottom: 0,
+                                            top: 0
+                                        },
+                                    });
+                                });
+                            });
+                            </script>
+                    {% else %}
+                        <div class="col-12">
+                            <div class="card text-center">
+                                <h3>Votre compte a été restreint. Veuillez vous rapprocher d'un responsable pour réactiver votre compte</h3>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        
+        {% endblock content %}

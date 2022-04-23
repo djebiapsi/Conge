@@ -1,0 +1,101 @@
+{% extends "empty.html.twig" %}
+
+{% block title %}Info demande {{idDemande}}{% endblock title %}
+{% block head %}{{ parent() }}{% endblock head %}
+{% block base %}{{ parent() }}{% endblock base %}
+{% block content %}
+<div class="container">
+    <div class="row row-cards">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0">{{duration}}</div>
+                     <div class="text-muted mb-4">Jours de congés déjà pris</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body p-3 text-center">
+                    <div class="h1 m-0">{{autreDepart}}</div>
+                     <div class="text-muted mb-4">Collaborateur(s) en congé dans cette periode</div>
+                </div>
+            </div>
+        </div>
+
+        {% set partDepart = (autreDepart*100)/effectif %}
+        {% set partRestante = 100 - partDepart %}
+
+        <div class="card">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Part d'employé en congé dans cette periode</h3>
+                  </div>
+                  <div class="card-body">
+                    <div id="chart-pie" style="height: 20rem"></div>
+                  </div>
+                </div>
+            </div>
+                <script>
+                  require(['c3', 'jquery'], function(c3, $) {
+                  	$(document).ready(function(){
+                  		var chart = c3.generate({
+                  			bindto: '#chart-pie', // id of chart wrapper
+                  			data: {
+                  				columns: [
+                  				    // each columns data
+                  					['data1', {{partDepart}}],
+                  					['data2', {{partRestante}}],
+                  				],
+                  				type: 'pie', // default type of chart
+                  				colors: {
+                  					'data1': tabler.colors["blue-light"],
+                  					'data2': tabler.colors["blue-lighter"],
+                  				},
+                  				names: {
+                  				    // name of each serie
+                  					'data1': 'Employé absent',
+                  					'data2': 'Employé présent',
+                  				}
+                  			},
+                  			axis: {
+                  			},
+                  			legend: {
+                                  show: true, //hide legend
+                  			},
+                  			padding: {
+                  				bottom: 0,
+                  				top: 0
+                  			},
+                  		});
+                  	});
+                  });
+                </script>
+            {% if idDemandeA|length != 0 %}
+            
+                {% for i in 0..idDemandeA|length-1 %}
+                <div class="col-md-6 col-xl-4">
+                    <div class="card text-center">
+                        <div class="card-header ">
+                            <h3 class="card-title ">Congé numéro {{idDemandeA[i]}}</h3>
+                        </div>
+                        <div class="card-body">
+                            ID de la demande : <b>{{idDemandeA[i]}}</b><br>
+                            Date de début : <b>{{dateDebut[i]}}</b><br>
+                            Date de fin : <b>{{dateFin[i]}}</b><br>
+                            Nom de l'employé : <b>{{nomAffich[i]}}</b><br>
+                            Prénom de l'employé : <b>{{prenomAffich[i]}}</b><br>
+                            Hiérarchie : <b>{{hierarchieAffich[i]}}</b><br>
+                            Equipe : <b>{{team[i]}}</b>
+                        </div>
+                        <mat-divider>
+                        </mat-divider>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+    </div>
+</div>
+{% endblock %}

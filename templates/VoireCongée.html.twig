@@ -1,0 +1,74 @@
+{% extends "empty.html.twig" %}
+{% block head %}
+{{parent()}}
+<link href='../lib/main.css' rel='stylesheet' />
+<script src='../lib/main.js'></script>
+<script src='../lib/locales-all.js'></script>
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var localeSelectorEl = document.getElementById('locale-selector');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+    headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+    },
+    navLinks: true, // can click day/week names to navigate views
+    businessHours: true, // display business hours
+    editable: false,
+    selectable: true,
+    locale: "fr",
+    events: [
+        {% for i in 0..dateDebut|length-1 %}
+        {
+            title: "{{statut[i]|capitalize}} - {{duration[i]}} jours",
+            start: "{{dateDebut[i]}}",
+            end: "{{dateFin[i]}}",
+            color:"{{color[i]}}"
+        },
+        {% endfor %}
+        
+    ]
+    });
+
+    calendar.render();
+
+    
+});
+
+
+</script>
+<style>
+#calendar{
+    max-width: px;
+    margin: 20px;
+}
+.my-md-5{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+</style>
+{% endblock %}
+
+{% block title %}Voir congé{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9 mx-auto">
+      <div class="card">
+        <div class="card-header">
+           <h3 class="">Vos demandes</h3>
+        </div>
+
+        <div class="card-body">
+          <div id="calendar" ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

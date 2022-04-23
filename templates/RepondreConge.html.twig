@@ -1,0 +1,84 @@
+{% extends "empty.html.twig" %}
+{% block title %}Reponde à une Demande{% endblock %}
+{% block head %}
+    {{parent()}}
+    <style>
+
+        input[type = "text"]{
+            visibility: hidden;
+        }
+
+    </style>
+{% endblock %}
+{% block base %} {{parent()}} {% endblock %}
+{% block content %}
+
+    {% if dateFin is defined %}
+        
+    <div class="container">
+        <div class="row row-cards">
+
+            {% for i in 0..dateFin|length-1 %}
+            <div class="col-md-6 col-xl-4">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Demande numéro {{idDemande[i]}}</h3>
+                    <div class="card-options text-right">
+                        <form action="ModifDemande.php"  method = "POST">
+                                    <input type="hidden" name="idDemande"value={{idDemande[i]}}>
+                                    <div class="custom-controls-stacked">
+                                        <div>
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" name="statut" value="accepté" checked>
+                                                <span class="custom-control-label">Accepter</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" class="custom-control-input" name="statut" value="rejeté">
+                                                <span class="custom-control-label">Rejeter</span>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <input type="submit" value="Confirmer !" class="btn btn-pill btn-primary ml-auto">
+                                        </div>
+                            </div>
+                        </form>
+                        
+                    </div>
+                  </div>
+                  <div class="card-body">
+                        ID de la demande : <b>{{idDemande[i]}}</b><br>
+                        Date de début : <b>{{dateDebut[i]}}</b><br>
+                        Date de fin : <b>{{dateFin[i]}}</b><br>
+                        Nom de l'employé : <b>{{nomAffich[i]|capitalize}}</b><br>
+                        Prénom de l'employé : <b>{{prenomAffich[i]|capitalize}}</b><br>
+                        Hiérarchie : <b>{{hierarchieAffich[i]}}</b><br>
+                        Equipe : <b>{{team[i]}}</b>
+
+                  </div>
+                  <form method="POST" action="StatsCongé.php">
+                  <div class="form-footer">
+                    <input type="submit" value="+ d'info" class="btn btn-secondary btn-block">
+                    <input type="hidden" name="idDemande" value={{idDemande[i]}}>
+                    <input type="hidden" name="dateDebut" value={{dateDebut[i]}}>
+                    <input type="hidden" name="dateFin" value={{dateFin[i]}}>
+                  </div>
+                  </form>
+                    <mat-divider>
+                    </mat-divider>
+                </div>
+              </div>
+
+            {% endfor %}    
+        </div>
+    </div>
+
+    {% else %}
+
+        <script>alert("Pas de demande de congée")</script>
+
+    {% endif %}
+     
+{% endblock %}
+    

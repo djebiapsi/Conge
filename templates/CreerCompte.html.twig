@@ -1,0 +1,71 @@
+{% extends "empty.html.twig" %}
+
+{% block title %}Inscription{% endblock title %}
+{% block head %}{{ parent() }}{% endblock head %}
+{% block base %}{{ parent() }}{% endblock base %}
+{% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col col-login mx-auto">
+                    <form action="Creation.php" method="post" class="card">
+                        <fieldset class="form-fieldset">
+                            <div class="form-group">
+                                <label class="form-label">Nom<span class="form-required">*</span></label>
+                                <input type="text" class="form-control" name="nom" required/>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Prénom<span class="form-required">*</span></label>
+                                <input type="text" class="form-control" name="prenom" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email<span class="form-required">*</span></label>
+                                <input type="email" class="form-control" name="email" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Equipe<span class="form-required">*</span></label>
+                                <select name="team" id="select-team" class="form-control custom-select">
+                                    <option value="Développeur" >Développeur</option>
+                                    <option value="Réseau" >Réseau</option>
+                                    <option value="Resources Humaines" >Resources Humaines</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-label">Hiérarchie</div>
+                                    <div class="custom-controls-stacked">
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="hierarchie" value="Collaborateur" checked>
+                                            <span class="custom-control-label">Collaborateur</span>
+                                        </label>
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" class="custom-control-input" name="hierarchie" value="Responsable">
+                                            <span class="custom-control-label">Responsable</span>
+                                        </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Pseudo<span class="form-required">*</span></label>
+                                <input type="text" class="form-control" name="pseudo" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Mot De Passe<span class="form-required">*</span></label>
+                                <input type="password" class="form-control" name="mdp" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirmer Mot De Passe<span class="form-required">*</span></label>
+                                <input type="password" class="form-control" name="mdp2" required />
+                            </div>
+                            <mat-divider>
+                            </mat-divider>
+                            <div>
+                                <input class="btn btn-primary btn-block" type="submit" value="Créer le compte">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+{% endblock content %}
+    
+
+
+    

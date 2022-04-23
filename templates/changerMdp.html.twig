@@ -1,0 +1,38 @@
+{% extends "empty.html.twig" %}
+
+{% block title %}Mot De Passe{% endblock title %}
+{% block content %}
+    <div class="my-3 my-md-5">
+        <div class="container">
+            <div class="row">
+                <div class="col col-login mx-auto">
+                    <form action="ModifMdp.php" method="post" class="card">
+                        <fieldset class="form-fieldset">
+                            <div class="form-group">
+                            <label class="form-label">Mot De Passe<span class="form-required">*</span></label>
+                            <input type="password" class="form-control" name="lastMdp" required/>
+                            </div>
+                            <div class="form-group">
+                            <label class="form-label">Nouveau Mot De Passe<span class="form-required">*</span></label>
+                            <input type="password" class="form-control" name="newMdp1" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Confirmer Nouveau Mot De Passe<span class="form-required">*</span></label>
+                                <input type="password" class="form-control" name="newMdp2" required />
+                            </div>
+                            <mat-divider>
+                            </mat-divider>
+                            <div>
+                                <input class="btn btn-primary btn-block" type="submit" value="Changer de mot de passe">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+    
+
+
+    
