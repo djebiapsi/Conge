@@ -13,7 +13,7 @@
 
 
     // créer la connexion avec la base de données  dbname=$dbname user=$login password=$pass
-    $bdd = pg_connect("host=$host port=5433 dbname=$dbname user=$login password=$pass");
+    $bdd = pg_pconnect("host=$host port=5432 dbname=$dbname user=$login password=$pass");
     
     // Fonction permettant de compter le nombre de jours ouvrés entre deux dates
     function get_nb_open_days($date_start, $date_stop) {
